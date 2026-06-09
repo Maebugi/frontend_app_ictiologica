@@ -22,6 +22,7 @@ class SalidaCreatePage extends StatefulWidget {
 
 class _SalidaCreatePageState extends State<SalidaCreatePage> {
   final _nombreLugarController = TextEditingController();
+  final _nombreProyectoController = TextEditingController();
   final _observacionesController = TextEditingController();
 
   DateTime? fechaInicio;
@@ -31,6 +32,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
 
     if (widget.salida != null) {
       _nombreLugarController.text = widget.salida!.nombreLugar ?? '';
+      _nombreProyectoController.text = widget.salida!.nombreProyecto ?? '';
       _observacionesController.text = widget.salida!.observaciones ?? '';
       fechaInicio = widget.salida!.fechaInicio;
     }
@@ -39,6 +41,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
   @override
   void dispose() {
     _nombreLugarController.dispose();
+    _nombreProyectoController.dispose();
     _observacionesController.dispose();
     super.dispose();
   }
@@ -86,6 +89,11 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
         ? null
         : _nombreLugarController.text.trim();
 
+    final nombreProyecto =
+        _nombreProyectoController.text.trim().isEmpty
+            ? null
+            : _nombreProyectoController.text.trim();
+
     final observaciones = _observacionesController.text.trim().isEmpty
         ? null
         : _observacionesController.text.trim();
@@ -96,6 +104,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
       success = await provider.updateSalida(
         salidaId: widget.salida!.salidaId,
         nombreLugar: nombreLugar,
+        nombreProyecto: nombreProyecto,
         fechaInicio: fechaInicio,
         observaciones: observaciones,
         fechaFin: widget.salida!.fechaFin,
@@ -104,6 +113,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
     } else {
       success = await provider.createSalida(
         nombreLugar: nombreLugar,
+        nombreProyecto: nombreProyecto,
         fechaInicio: fechaInicio,
         observaciones: observaciones,
       );
@@ -221,7 +231,35 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
 
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD9D9D9),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextField(
+                  controller: _nombreProyectoController,
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  decoration: _localInputDecoration(
+                    'Nombre del proyecto',
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 14),
+
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFD9D9D9),
                   borderRadius: BorderRadius.circular(12),

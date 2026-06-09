@@ -82,6 +82,7 @@ class SalidaRepository {
         salidaId: request.salidaId,
         idUsuario: _offlineUserId,
         nombreLugar: request.nombreLugar,
+        nombreProyecto: request.nombreProyecto,
         fechaInicio: request.fechaInicio,
         fechaFin: null,
         observaciones: request.observaciones,
@@ -120,15 +121,21 @@ class SalidaRepository {
         salidaId: current.salidaId,
         idUsuario: current.idUsuario,
         nombreLugar: request.nombreLugar ?? current.nombreLugar,
+        nombreProyecto : request.nombreProyecto ?? current.nombreProyecto,
         fechaInicio: request.fechaInicio ?? current.fechaInicio,
         fechaFin: request.fechaFin ?? current.fechaFin,
         observaciones: request.observaciones ?? current.observaciones,
         estado: request.estado ?? current.estado,
       );
+      final currentStatus =
+          await localDatasource.getSyncStatus(salidaId);
 
       await localDatasource.saveSalida(
         updated,
-        syncStatus: SyncStatus.pendingUpdate,
+        syncStatus:
+            currentStatus == SyncStatus.pendingCreate
+                ? SyncStatus.pendingCreate
+                : SyncStatus.pendingUpdate,
       );
 
       return updated;
@@ -158,17 +165,23 @@ class SalidaRepository {
         salidaId: current.salidaId,
         idUsuario: current.idUsuario,
         nombreLugar: current.nombreLugar,
+        nombreProyecto : current.nombreProyecto,
         fechaInicio: current.fechaInicio,
         fechaFin: request.fechaFin ?? current.fechaFin,
         observaciones: request.observaciones ?? current.observaciones,
         estado: 'cerrada',
       );
 
+      final currentStatus =
+          await localDatasource.getSyncStatus(salidaId);
+
       await localDatasource.saveSalida(
         updated,
-        syncStatus: SyncStatus.pendingUpdate,
+        syncStatus:
+            currentStatus == SyncStatus.pendingCreate
+                ? SyncStatus.pendingCreate
+                : SyncStatus.pendingUpdate,
       );
-
       return updated;
     }
 
@@ -206,6 +219,7 @@ class SalidaRepository {
         final request = SalidaCreateRequestModel(
           salidaId: salida.salidaId,
           nombreLugar: salida.nombreLugar,
+          nombreProyecto: salida.nombreProyecto,
           fechaInicio: salida.fechaInicio,
           observaciones: salida.observaciones,
         );
@@ -242,6 +256,7 @@ class SalidaRepository {
         } else {
           final request = SalidaUpdateRequestModel(
             nombreLugar: salida.nombreLugar,
+            nombreProyecto: salida.nombreProyecto,
             fechaInicio: salida.fechaInicio,
             fechaFin: salida.fechaFin,
             observaciones: salida.observaciones,

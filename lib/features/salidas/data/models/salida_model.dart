@@ -6,6 +6,7 @@ class SalidaModel {
   final DateTime? fechaFin;
   final String? observaciones;
   final String estado;
+  final String? nombreProyecto;
 
   SalidaModel({
     required this.salidaId,
@@ -14,6 +15,7 @@ class SalidaModel {
     this.fechaInicio,
     this.fechaFin,
     this.observaciones,
+    this.nombreProyecto,
     required this.estado,
   });
 
@@ -22,6 +24,7 @@ class SalidaModel {
       salidaId: json['salida_id'],
       idUsuario: json['id_usuario'],
       nombreLugar: json['nombre_lugar'],
+      nombreProyecto: json['nombre_proyecto'],
       fechaInicio: json['fecha_inicio'] != null
           ? DateTime.parse(json['fecha_inicio'])
           : null,

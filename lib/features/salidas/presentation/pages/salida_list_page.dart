@@ -70,6 +70,7 @@ class _SalidaListPageState extends State<SalidaListPage> {
           color: const Color(0xFFD9D9D9),
           borderRadius: BorderRadius.circular(14),
         ),
+        // Mostrar datos del proyecto
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -77,7 +78,8 @@ class _SalidaListPageState extends State<SalidaListPage> {
               children: [
                 Expanded(
                   child: Text(
-                    '📍 ${salida.nombreLugar ?? 'Lugar no definido'}',
+        // Titulo del proyecto
+                    '🧪 ${salida.nombreProyecto ?? 'Proyecto no definido'}',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -87,7 +89,12 @@ class _SalidaListPageState extends State<SalidaListPage> {
                 _statusChip(salida.estado),
               ],
             ),
+            // datos complementarios de la salida
             const SizedBox(height: 12),
+           Text(
+               'Nombre lugar: ${salida.nombreLugar ?? 'Sin lugar'}',
+               style: const TextStyle(fontSize: 15, height: 1.4),
+            ),
             Text(
               'Fecha inicio: ${_formatDate(salida.fechaInicio)}',
               style: const TextStyle(fontSize: 15, height: 1.4),

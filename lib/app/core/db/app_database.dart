@@ -43,6 +43,7 @@ class AppDatabase {
         salida_id TEXT PRIMARY KEY,
         id_usuario TEXT NOT NULL,
         nombre_lugar TEXT,
+        nombre_proyecto TEXT,
         fecha_inicio TEXT,
         fecha_fin TEXT,
         observaciones TEXT,

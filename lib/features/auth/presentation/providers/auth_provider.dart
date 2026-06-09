@@ -40,10 +40,14 @@ class AuthProvider extends ChangeNotifier {
       await _repository.register(request);
       return true;
     } on DioException catch (e) {
-      errorMessage = ErrorMessageParser.parse(
-        e.response?.data,
+      print(e.response?.data);
+        print(e.response?.statusCode);
+
+        errorMessage = ErrorMessageParser.parse(
+          e.response?.data,
         fallback: 'No se pudo registrar el usuario',
     );
+      isAuthenticated = false;
       return false;
     } catch (e) {
       errorMessage = 'Error al registrar usuario';

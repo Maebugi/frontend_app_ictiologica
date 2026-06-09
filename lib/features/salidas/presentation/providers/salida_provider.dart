@@ -65,6 +65,7 @@ class SalidaProvider extends ChangeNotifier {
 
   Future<bool> createSalida({
     String? nombreLugar,
+    String? nombreProyecto,
     DateTime? fechaInicio,
     String? observaciones,
   }) async {
@@ -76,6 +77,7 @@ class SalidaProvider extends ChangeNotifier {
       final request = SalidaCreateRequestModel(
         salidaId: _uuid.v4(),
         nombreLugar: nombreLugar,
+        nombreProyecto: nombreProyecto,
         fechaInicio: fechaInicio,
         observaciones: observaciones,
       );
@@ -101,6 +103,7 @@ class SalidaProvider extends ChangeNotifier {
   Future<bool> updateSalida({
     required String salidaId,
     String? nombreLugar,
+    String? nombreProyecto,
     DateTime? fechaInicio,
     DateTime? fechaFin,
     String? observaciones,
@@ -113,6 +116,7 @@ class SalidaProvider extends ChangeNotifier {
 
       final request = SalidaUpdateRequestModel(
         nombreLugar: nombreLugar,
+        nombreProyecto: nombreProyecto,
         fechaInicio: fechaInicio,
         fechaFin: fechaFin,
         observaciones: observaciones,

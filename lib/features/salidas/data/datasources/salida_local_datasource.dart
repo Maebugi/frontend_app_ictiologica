@@ -19,6 +19,7 @@ class SalidaLocalDatasource {
         'salida_id': salida.salidaId,
         'id_usuario': salida.idUsuario,
         'nombre_lugar': salida.nombreLugar,
+        'nombre_proyecto': salida.nombreProyecto,
         'fecha_inicio': salida.fechaInicio?.toIso8601String(),
         'fecha_fin': salida.fechaFin?.toIso8601String(),
         'observaciones': salida.observaciones,
@@ -45,6 +46,7 @@ class SalidaLocalDatasource {
         'salida_id': json['salida_id'],
         'id_usuario': json['id_usuario'],
         'nombre_lugar': json['nombre_lugar'],
+        'nombre_proyecto':json['nombre_proyecto'],
         'fecha_inicio': json['fecha_inicio'],
         'fecha_fin': json['fecha_fin'],
         'observaciones': json['observaciones'],
@@ -71,6 +73,7 @@ class SalidaLocalDatasource {
       'salida_id': json['salida_id'],
       'id_usuario': json['id_usuario'],
       'nombre_lugar': json['nombre_lugar'],
+      'nombre_proyecto':json['nombre_proyecto'],
       'fecha_inicio': json['fecha_inicio'],
       'fecha_fin': json['fecha_fin'],
       'observaciones': json['observaciones'],
@@ -108,6 +111,7 @@ class SalidaLocalDatasource {
         'salida_id': json['salida_id'],
         'id_usuario': json['id_usuario'],
         'nombre_lugar': json['nombre_lugar'],
+        'nombre_proyecto': json['nombre_proyecto'],
         'fecha_inicio': json['fecha_inicio'],
         'fecha_fin': json['fecha_fin'],
         'observaciones': json['observaciones'],
@@ -131,6 +135,7 @@ class SalidaLocalDatasource {
         'salida_id': json['salida_id'],
         'id_usuario': json['id_usuario'],
         'nombre_lugar': json['nombre_lugar'],
+        'nombre_proyecto': json['nombre_proyecto'],
         'fecha_inicio': json['fecha_inicio'],
         'fecha_fin': json['fecha_fin'],
         'observaciones': json['observaciones'],
@@ -176,5 +181,22 @@ class SalidaLocalDatasource {
       where: 'salida_id = ?',
       whereArgs: [salidaId],
     );
+  }
+  Future<String?> getSyncStatus(String salidaId) async {
+    final db = await AppDatabase.database;
+
+    final rows = await db.query(
+      DBConstants.salidasTable,
+      columns: ['sync_status'],
+      where: 'salida_id = ?',
+      whereArgs: [salidaId],
+      limit: 1,
+    );
+
+    if (rows.isEmpty) {
+      return null;
+    }
+
+    return rows.first['sync_status'] as String?;
   }
 }

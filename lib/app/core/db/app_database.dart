@@ -22,6 +22,14 @@ class AppDatabase {
       onCreate: (db, version) async {
         await _createTables(db);
       },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 6) {
+          await db.execute(
+            'ALTER TABLE ${DBConstants.ocurrenciasTable} '
+            'ADD COLUMN dinamica_agua TEXT',
+          );
+        }
+      },
     );
   }
 
@@ -80,6 +88,7 @@ class AppDatabase {
         profundidad_maxima REAL,
         caudal_velocidad REAL,
         tipo_habitat TEXT,
+        dinamica_agua TEXT,
         microhabitat TEXT,
         cobertura_dosel REAL,
         uso_suelo_ribereno TEXT,

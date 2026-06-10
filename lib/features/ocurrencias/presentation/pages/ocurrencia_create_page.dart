@@ -55,6 +55,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
   String? metodoCaptura;
   String? datum;
   String? tipoHabitat;
+  String? dinamicaAgua;
   String? microhabitat;
   String? usoSueloRibereno;
   String? estabilidadOrillas;
@@ -76,8 +77,37 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
     'Observación directa',
   ];
   final List<String> datumOptions = ['WGS84', 'MAGNA-SIRGAS'];
-  final List<String> tipoHabitatOptions = ['Lótico', 'Léntico', 'Mixto'];
-  final List<String> microhabitatOptions = ['Orilla', 'Centro', 'Fondo', 'Superficie'];
+  final List<String> tipoHabitatOptions = [
+                                            'Río',
+                                            'Quebrada',
+                                            'Caño',
+                                            'Laguna',
+                                            'Ciénaga',
+                                            'Embalse',
+                                            'Humedal',
+                                            'Estuario',
+                                          ];
+  final List<String> dinamicaAguaOptions = [
+    'Lótico',
+    'Léntico',
+    'Transicional'
+  ];
+  final List<String> microhabitatOptions = [
+                                             'Poza',
+                                             'Corredera',
+                                             'Remanso',
+                                             'Orilla vegetada',
+                                             'Orilla sin vegetación',
+                                             'Raíces sumergidas',
+                                             'Vegetación acuática',
+                                             'Macrófitas',
+                                             'Sustrato rocoso',
+                                             'Sustrato arenoso',
+                                             'Sustrato lodoso',
+                                             'Canal principal',
+                                             'Planicie inundable',
+                                             'Otro'
+                                           ];
   final List<String> usoSueloOptions = ['Bosque', 'Agrícola', 'Ganadero', 'Urbano'];
   final List<String> estabilidadOrillasOptions = ['Alta', 'Media', 'Baja'];
   final List<String> sustratoOptions = ['Arena', 'Lodo', 'Roca', 'Grava', 'Mixto'];
@@ -124,6 +154,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
       metodoCaptura = o.metodoCaptura;
       datum = o.datum;
       tipoHabitat = o.tipoHabitat;
+      dinamicaAgua = o.dinamicaAgua;
       microhabitat = o.microhabitat;
       usoSueloRibereno = o.usoSueloRibereno;
       estabilidadOrillas = o.estabilidadOrillas;
@@ -395,6 +426,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
         profundidadMaxima: double.tryParse(_profundidadMaximaController.text.trim()),
         caudalVelocidad: double.tryParse(_caudalVelocidadController.text.trim()),
         tipoHabitat: tipoHabitat,
+        dinamicaAgua: dinamicaAgua,
         microhabitat: microhabitat,
         coberturaDosel: double.tryParse(_coberturaDoselController.text.trim()),
         usoSueloRibereno: usoSueloRibereno,
@@ -472,6 +504,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
       profundidadMaxima: double.tryParse(_profundidadMaximaController.text.trim()),
       caudalVelocidad: double.tryParse(_caudalVelocidadController.text.trim()),
       tipoHabitat: tipoHabitat,
+      dinamicaAgua : dinamicaAgua,
       microhabitat: microhabitat,
       coberturaDosel: double.tryParse(_coberturaDoselController.text.trim()),
       usoSueloRibereno: usoSueloRibereno,
@@ -733,6 +766,16 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
                 onChanged: (value) => setState(() => tipoHabitat = value),
               ),
               const SizedBox(height: 12),
+              _dropdownField(
+                              label: 'Dinámica del agua',
+                              value: dinamicaAgua,
+                              items: dinamicaAguaOptions,
+                              onChanged: (value) {
+                                setState(() {
+                                  dinamicaAgua = value;
+                                });
+                              },
+                            ),
 
               _dropdownField(
                 label: 'Microhábitat',
@@ -780,6 +823,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
                 onChanged: (value) => setState(() => clima = value),
               ),
               const SizedBox(height: 12),
+
 
               _dropdownField(
                 label: 'Arte de pesca',

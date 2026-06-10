@@ -23,6 +23,7 @@ class OcurrenciaDetailModel {
   final double? profundidadMaxima;
   final double? caudalVelocidad;
   final String? tipoHabitat;
+  final String? dinamicaAgua;
   final String? microhabitat;
   final double? coberturaDosel;
   final String? usoSueloRibereno;
@@ -63,6 +64,7 @@ class OcurrenciaDetailModel {
     this.profundidadMaxima,
     this.caudalVelocidad,
     this.tipoHabitat,
+    this.dinamicaAgua,
     this.microhabitat,
     this.coberturaDosel,
     this.usoSueloRibereno,
@@ -107,6 +109,7 @@ class OcurrenciaDetailModel {
       profundidadMaxima: (json['profundidad_maxima'] as num?)?.toDouble(),
       caudalVelocidad: (json['caudal_velocidad'] as num?)?.toDouble(),
       tipoHabitat: json['tipo_habitat'],
+      dinamicaAgua: json['dinamica_agua'],
       microhabitat: json['microhabitat'],
       coberturaDosel: (json['cobertura_dosel'] as num?)?.toDouble(),
       usoSueloRibereno: json['uso_suelo_ribereno'],

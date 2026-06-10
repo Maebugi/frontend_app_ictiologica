@@ -21,6 +21,7 @@ class OcurrenciaUpdateRequestModel {
   final double? profundidadMaxima;
   final double? caudalVelocidad;
   final String? tipoHabitat;
+  final String? dinamicaAgua;
   final String? microhabitat;
   final double? coberturaDosel;
   final String? usoSueloRibereno;
@@ -56,6 +57,7 @@ class OcurrenciaUpdateRequestModel {
     this.profundidadMaxima,
     this.caudalVelocidad,
     this.tipoHabitat,
+    this.dinamicaAgua,
     this.microhabitat,
     this.coberturaDosel,
     this.usoSueloRibereno,
@@ -93,6 +95,7 @@ class OcurrenciaUpdateRequestModel {
       'profundidad_maxima': profundidadMaxima,
       'caudal_velocidad': caudalVelocidad,
       'tipo_habitat': tipoHabitat,
+      'dinamica_agua':dinamicaAgua,
       'microhabitat': microhabitat,
       'cobertura_dosel': coberturaDosel,
       'uso_suelo_ribereno': usoSueloRibereno,

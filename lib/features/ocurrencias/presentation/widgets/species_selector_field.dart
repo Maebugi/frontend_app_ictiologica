@@ -43,7 +43,7 @@ class SpeciesSelectorField extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Nombre científico: ${selectedSpecies!.nombreCientifico ?? 'No disponible'}',
+                    'Nombre Comun: ${selectedSpecies!.nombreComun ?? 'No disponible'}',
                     style: const TextStyle(fontSize: 14),
                   ),
                   Text(

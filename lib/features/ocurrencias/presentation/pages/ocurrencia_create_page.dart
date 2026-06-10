@@ -856,9 +856,9 @@ class _SpeciesSearchDelegate extends SearchDelegate<EspecieModel?> {
             final especie = results[index];
 
             return ListTile(
-              title: Text(especie.displayName),
+              title: Text(especie.nombreCientifico ?? 'Sin nombre científico',),
               subtitle: Text(
-                '${especie.nombreCientifico ?? 'Sin nombre científico'}\n'
+                '${especie.nombreComun ?? 'Sin nombre comun'}\n'
                 'Familia: ${especie.familia ?? 'No disponible'}',
               ),
               isThreeLine: true,
@@ -888,7 +888,7 @@ class _SpeciesSearchDelegate extends SearchDelegate<EspecieModel?> {
         return ListTile(
           title: Text(especie.displayName),
           subtitle: Text(
-            '${especie.nombreCientifico ?? 'Sin nombre científico'}\n'
+            '${especie.nombreComun ?? 'Sin nombre comun'}\n'
             'Familia: ${especie.familia ?? 'No disponible'}',
           ),
           isThreeLine: true,

@@ -27,9 +27,11 @@ class EspecieModel {
   }
 
   String get displayName {
-    if (nombreComun != null && nombreComun!.trim().isNotEmpty) {
-      return '$nombreComun';
+    if (nombreCientifico != null &&
+        nombreCientifico!.trim().isNotEmpty) {
+      return nombreCientifico!;
     }
-    return nombreCientifico ?? 'Especie sin nombre';
+
+    return nombreComun ?? 'Especie sin nombre';
   }
 }

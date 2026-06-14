@@ -29,6 +29,20 @@ class AppDatabase {
             'ADD COLUMN dinamica_agua TEXT',
           );
         }
+        if (oldVersion < 7) {
+            await db.execute('''
+              CREATE TABLE IF NOT EXISTS ${DBConstants.salidaEvidenciasTable} (
+                id_foto TEXT PRIMARY KEY,
+                salida_id TEXT NOT NULL,
+                ruta TEXT,
+                tipo_archivo TEXT,
+                observaciones TEXT,
+                sync_status TEXT NOT NULL,
+                is_deleted INTEGER NOT NULL DEFAULT 0,
+                updated_at_local TEXT
+              )
+            ''');
+        }
       },
     );
   }
@@ -143,6 +157,18 @@ class AppDatabase {
         id_foto TEXT PRIMARY KEY,
         id_ocurrencia TEXT NOT NULL,
         ruta TEXT,
+        observaciones TEXT,
+        sync_status TEXT NOT NULL,
+        is_deleted INTEGER NOT NULL DEFAULT 0,
+        updated_at_local TEXT
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS ${DBConstants.salidaEvidenciasTable} (
+        id_foto TEXT PRIMARY KEY,
+        salida_id TEXT NOT NULL,
+        ruta TEXT,
+        tipo_archivo TEXT,
         observaciones TEXT,
         sync_status TEXT NOT NULL,
         is_deleted INTEGER NOT NULL DEFAULT 0,

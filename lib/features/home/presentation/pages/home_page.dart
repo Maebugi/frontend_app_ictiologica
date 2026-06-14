@@ -10,6 +10,10 @@ import 'package:provider/provider.dart';
 import 'package:frontend/features/salidas/presentation/providers/salida_provider.dart';
 import 'package:frontend/features/ocurrencias/presentation/providers/ocurrencia_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:frontend/features/mediciones/presentation/providers/medicion_provider.dart';
+import 'package:frontend/features/evidencias/presentation/providers/evidencia_provider.dart';
+import 'package:frontend/features/salida_evidencias/presentation/providers/salida_evidencia_provider.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -102,15 +106,32 @@ class HomePage extends StatelessWidget {
                 onTap: () {},
               ),
               _menuItem(
-                title: 'Configuración',
-                emoji: '⚙️',
+                title: 'Sincronización de datos',
+                emoji: '↻',
                 onTap: () async {
-                  final salidaProvider = context.read<SalidaProvider>();
-                  final ocurrenciaProvider = context.read<OcurrenciaProvider>();
+                  final salidaProvider =
+                        context.read<SalidaProvider>();
 
+                  final ocurrenciaProvider =
+                        context.read<OcurrenciaProvider>();
+
+                  final medicionProvider =
+                        context.read<MedicionProvider>();
+
+                  final evidenciaProvider =
+                        context.read<EvidenciaProvider>();
+
+                  final salidaEvidenciaProvider =
+                        context.read<SalidaEvidenciaProvider>();
                   await salidaProvider.syncPendingSalidas();
+
                   await ocurrenciaProvider.syncPendingOcurrencias();
 
+                  await medicionProvider.syncPendingMediciones();
+
+                  await evidenciaProvider.syncPendingEvidencias();
+
+                  await salidaEvidenciaProvider.syncPendingEvidencias();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Sync completo ejecutado'),

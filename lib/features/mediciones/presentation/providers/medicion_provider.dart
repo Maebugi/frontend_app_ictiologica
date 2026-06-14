@@ -204,4 +204,11 @@ class MedicionProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  Future<void> syncPendingMediciones() async {
+    try {
+      await _repository.syncPendingMediciones();
+    } catch (e) {
+      print('ERROR SYNC MEDICIONES: $e');
+    }
+  }
 }

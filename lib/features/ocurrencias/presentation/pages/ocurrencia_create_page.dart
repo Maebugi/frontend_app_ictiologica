@@ -86,6 +86,10 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
                                             'Embalse',
                                             'Humedal',
                                             'Estuario',
+                                            'Morichal',
+                                            'Jagüey',
+                                            'Pozo',
+                                            'Aljibe',
                                           ];
   final List<String> dinamicaAguaOptions = [
     'Lótico',
@@ -93,20 +97,20 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
     'Transicional'
   ];
   final List<String> microhabitatOptions = [
-                                             'Poza',
-                                             'Corredera',
-                                             'Remanso',
-                                             'Orilla vegetada',
-                                             'Orilla sin vegetación',
-                                             'Raíces sumergidas',
-                                             'Vegetación acuática',
-                                             'Macrófitas',
-                                             'Sustrato rocoso',
-                                             'Sustrato arenoso',
-                                             'Sustrato lodoso',
                                              'Canal principal',
-                                             'Planicie inundable',
-                                             'Otro'
+                                             'Margen izquierda',
+                                             'Margen derecha',
+                                             'Poza',
+                                             'Remanso',
+                                             'Corredera',
+                                             'Rápidos',
+                                             'Riffle',
+                                             'Run',
+                                             'Zona inundada',
+                                             'Vegetación sumergida',
+                                             'Vegetación marginal',
+                                             'Acumulación de hojarasca',
+                                             'Troncos o material leñoso'
                                            ];
   final List<String> usoSueloOptions = ['Bosque', 'Agrícola', 'Ganadero', 'Urbano'];
   final List<String> estabilidadOrillasOptions = ['Alta', 'Media', 'Baja'];
@@ -776,6 +780,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
                                 });
                               },
                             ),
+              const SizedBox(height: 12),
 
               _dropdownField(
                 label: 'Microhábitat',

@@ -13,6 +13,7 @@ import '../features/onboarding/presentation/pages/onboarding_flow_page.dart';
 import '../features/ocurrencias/presentation/providers/ocurrencia_provider.dart';
 import '../features/mediciones/presentation/providers/medicion_provider.dart';
 import '../features/evidencias/presentation/providers/evidencia_provider.dart';
+import '../features/salida_evidencias/presentation/providers/salida_evidencia_provider.dart';
 
 class FishTrackApp extends StatelessWidget {
   const FishTrackApp({super.key});
@@ -21,11 +22,24 @@ class FishTrackApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => SalidaProvider()),
-        ChangeNotifierProvider(create: (_) => OcurrenciaProvider()),
-        ChangeNotifierProvider(create: (_) => MedicionProvider()),
-        ChangeNotifierProvider(create: (_) => EvidenciaProvider()),
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SalidaProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OcurrenciaProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MedicionProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EvidenciaProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SalidaEvidenciaProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

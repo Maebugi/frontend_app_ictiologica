@@ -7,7 +7,9 @@ import '../providers/salida_provider.dart';
 import '../../../ocurrencias/presentation/pages/ocurrencia_create_page.dart';
 import '../../../ocurrencias/presentation/pages/ocurrencia_detail_page.dart';
 import '../../../ocurrencias/presentation/providers/ocurrencia_provider.dart';
+import '../../../salida_evidencias/presentation/pages/salida_evidencia_create_page.dart';
 import 'salida_create_page.dart';
+
 class SalidaDetailPage extends StatefulWidget {
   final String salidaId;
 
@@ -448,6 +450,23 @@ class _SalidaDetailPageState extends State<SalidaDetailPage> {
                             backgroundColor: AppColors.loginBlue,
                             width: 240,
                             ),
+                        const SizedBox(height: 12),
+
+                        CustomButton(
+                          text: 'Registrar evidencia',
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => SalidaEvidenciaCreatePage(
+                                  salidaId: widget.salidaId,
+                                ),
+                              ),
+                            );
+                          },
+                          backgroundColor: Colors.orange,
+                          width: 240,
+                        ),
                         const SizedBox(height: 12),
                         CustomButton(
                           text: 'Finalizar salida',

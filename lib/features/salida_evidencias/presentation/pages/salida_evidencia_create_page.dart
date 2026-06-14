@@ -6,25 +6,25 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../../app/theme/app_colors.dart';
 import 'package:frontend/app/shared/widgets/custom_button.dart';
-import '../providers/evidencia_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import '../providers/salida_evidencia_provider.dart';
 
 
 
-class EvidenciaCreatePage extends StatefulWidget {
-  final String ocurrenciaId;
+class SalidaEvidenciaCreatePage extends StatefulWidget {
+  final String salidaId;
 
-  const EvidenciaCreatePage({
+  const SalidaEvidenciaCreatePage({
     super.key,
-    required this.ocurrenciaId,
+    required this.salidaId,
   });
 
   @override
-  State<EvidenciaCreatePage> createState() => _EvidenciaCreatePageState();
+  State<SalidaEvidenciaCreatePage> createState() =>  _SalidaEvidenciaCreatePageState();
 }
 
-class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
+class _SalidaEvidenciaCreatePageState extends State<SalidaEvidenciaCreatePage> {
   final ImagePicker _picker = ImagePicker();
   File? _selectedImage;
   final TextEditingController _observacionesController = TextEditingController();
@@ -32,8 +32,15 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      context.read<EvidenciaProvider>().loadEvidencias(widget.ocurrenciaId);
+    Future.microtask(() async {
+
+      await context
+          .read<SalidaEvidenciaProvider>()
+          .syncPendingEvidencias();
+
+      await context
+          .read<SalidaEvidenciaProvider>()
+          .loadEvidencias(widget.salidaId);
     });
   }
 
@@ -45,7 +52,7 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
 
     Future<File> _copyImageToAppStorage(File originalFile) async {
     final appDir = await getApplicationDocumentsDirectory();
-    final evidenciasDir = Directory('${appDir.path}/evidencias');
+    final evidenciasDir = Directory('${appDir.path}/salida_evidencias');
 
     if (!await evidenciasDir.exists()) {
       await evidenciasDir.create(recursive: true);
@@ -54,11 +61,11 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
     final timestamp =
         DateFormat('yyyy_MM_dd_HH_mm_ss').format(DateTime.now());
 
-    final ocurrenciaCode =
-        widget.ocurrenciaId.substring(0, 8).toUpperCase();
+    final salidaCode =
+        widget.salidaId.substring(0, 8).toUpperCase();
 
     final fileName =
-        'OCU_${ocurrenciaCode}_$timestamp${p.extension(originalFile.path)}';
+        'SAL_${salidaCode}_$timestamp${p.extension(originalFile.path)}';
     print('NOMBRE FOTO: $fileName');
     final newPath = '${evidenciasDir.path}/$fileName';
 
@@ -85,10 +92,10 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
       return;
     }
 
-    final provider = context.read<EvidenciaProvider>();
+    final provider = context.read<SalidaEvidenciaProvider>();
 
     final success = await provider.uploadEvidencia(
-      ocurrenciaId: widget.ocurrenciaId,
+      salidaId: widget.salidaId,
       file: _selectedImage!,
       observaciones: _observacionesController.text.trim().isEmpty
           ? null
@@ -114,7 +121,7 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
   String _buildImageUrl(String relativePath) {
     return 'http://192.168.1.10:8000/$relativePath';
   }
-  Widget _buildEvidenceImage(String? ruta) 
+  Widget _buildEvidenceImage(String? ruta)
   {
     if (ruta == null || ruta.trim().isEmpty) {
       return Container(
@@ -191,7 +198,7 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
         ),
       );
     }
-  
+
     // 3. Ruta relativa del backend, por ejemplo: storage/evidencias/foto.jpg
     final remoteUrl = _buildImageUrl(cleanRuta);
     print('REMOTE URL: $remoteUrl');
@@ -220,7 +227,7 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
   }
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<EvidenciaProvider>();
+    final provider = context.watch<SalidaEvidenciaProvider>();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF0EED6),
@@ -245,7 +252,7 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
                     const SizedBox(width: 6),
                     const Expanded(
                       child: Text(
-                        'Registrar evidencias',
+                        'Evidencias de salida',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w800,
@@ -361,7 +368,7 @@ class _EvidenciaCreatePageState extends State<EvidenciaCreatePage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Text(
-                    'Aún no has subido evidencias para esta ocurrencia',
+                    'Aún no has subido evidencias para esta salida',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                   ),

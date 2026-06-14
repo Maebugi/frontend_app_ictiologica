@@ -120,4 +120,11 @@ class EvidenciaProvider extends ChangeNotifier {
         notifyListeners();
     }
     }
+  Future<void> syncPendingEvidencias() async {
+    try {
+      await _repository.syncPendingEvidencias();
+    } catch (e) {
+      print('ERROR SYNC EVIDENCIAS: $e');
+    }
+  }
 }

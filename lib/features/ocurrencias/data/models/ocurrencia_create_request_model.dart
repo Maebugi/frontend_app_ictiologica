@@ -36,6 +36,11 @@ class OcurrenciaCreateRequestModel {
   final String? codigoMuestreo;
   final String? datum;
   final String? observaciones;
+  final double? latitud;
+  final double? longitud;
+  final String? estacionId;
+  final String? codigoEstacion;
+  final String? nombreEstacion;
 
   //local
   final String? nombreComun;
@@ -80,6 +85,11 @@ class OcurrenciaCreateRequestModel {
     this.codigoMuestreo,
     this.datum,
     this.observaciones,
+    this.latitud,
+    this.longitud,
+    this.estacionId,
+    this.codigoEstacion,
+    this.nombreEstacion,
 
     //local
     this.nombreComun,
@@ -126,6 +136,11 @@ class OcurrenciaCreateRequestModel {
       'codigo_muestreo': codigoMuestreo,
       'datum': datum,
       'observaciones': observaciones,
+      'latitud': latitud,
+      'longitud': longitud,
+      'estacion_id': estacionId,
+      'codigo_estacion': codigoEstacion,
+      'nombre_estacion': nombreEstacion,
     };
   }
 }

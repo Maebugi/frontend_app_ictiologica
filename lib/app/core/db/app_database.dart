@@ -23,11 +23,31 @@ class AppDatabase {
         await _createTables(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 6) {
+        if (oldVersion < 8) {
           await db.execute(
-            'ALTER TABLE ${DBConstants.ocurrenciasTable} '
-            'ADD COLUMN dinamica_agua TEXT',
-          );
+              'ALTER TABLE ${DBConstants.ocurrenciasTable} '
+              'ADD COLUMN latitud REAL',
+            );
+
+            await db.execute(
+              'ALTER TABLE ${DBConstants.ocurrenciasTable} '
+              'ADD COLUMN longitud REAL',
+            );
+
+            await db.execute(
+              'ALTER TABLE ${DBConstants.ocurrenciasTable} '
+              'ADD COLUMN estacion_id TEXT',
+            );
+
+            await db.execute(
+              'ALTER TABLE ${DBConstants.ocurrenciasTable} '
+              'ADD COLUMN codigo_estacion TEXT',
+            );
+
+            await db.execute(
+              'ALTER TABLE ${DBConstants.ocurrenciasTable} '
+              'ADD COLUMN nombre_estacion TEXT',
+            );
         }
         if (oldVersion < 7) {
             await db.execute('''
@@ -117,6 +137,11 @@ class AppDatabase {
         nombre_comun TEXT,
         nombre_cientifico TEXT,
         familia TEXT,
+        latitud REAL,
+        longitud REAL,
+        estacion_id TEXT,
+        codigo_estacion TEXT,
+        nombre_estacion TEXT,
         sync_status TEXT NOT NULL,
         is_deleted INTEGER NOT NULL DEFAULT 0,
         updated_at_local TEXT
@@ -174,6 +199,16 @@ class AppDatabase {
         is_deleted INTEGER NOT NULL DEFAULT 0,
         updated_at_local TEXT
       )
+    ''');
+    await db.execute('''
+    CREATE TABLE IF NOT EXISTS ${DBConstants.estacionesTable} (
+      estacion_id TEXT PRIMARY KEY,
+      codigo TEXT,
+      nombre TEXT,
+      latitud REAL,
+      longitud REAL,
+      activo INTEGER
+    )
     ''');
   }
   

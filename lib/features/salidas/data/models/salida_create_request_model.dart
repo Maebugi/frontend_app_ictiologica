@@ -5,6 +5,7 @@ class SalidaCreateRequestModel {
   final DateTime? fechaInicio;
   final String? observaciones;
 
+
   SalidaCreateRequestModel({
     required this.salidaId,
     this.nombreLugar,

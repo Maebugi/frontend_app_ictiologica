@@ -35,9 +35,15 @@ class OcurrenciaDetailModel {
   final String? codigoMuestreo;
   final String? datum;
   final String? observaciones;
+  final double? latitud;
+  final double? longitud;
+  final String? estacionId;
+  final String? codigoEstacion;
+  final String? nombreEstacion;
   final String? nombreComun;
   final String? nombreCientifico;
   final String? familia;
+
 
   OcurrenciaDetailModel({
     required this.idOcurrencia,
@@ -76,9 +82,16 @@ class OcurrenciaDetailModel {
     this.codigoMuestreo,
     this.datum,
     this.observaciones,
+    this.latitud,
+    this.longitud,
+    this.estacionId,
+    this.codigoEstacion,
+    this.nombreEstacion,
     this.nombreComun,
+
     this.nombreCientifico,
     this.familia,
+
   });
 
   factory OcurrenciaDetailModel.fromJson(Map<String, dynamic> json) {
@@ -121,6 +134,11 @@ class OcurrenciaDetailModel {
       codigoMuestreo: json['codigo_muestreo'],
       datum: json['datum'],
       observaciones: json['observaciones'],
+      latitud: (json['latitud'] as num?)?.toDouble(),
+      longitud: (json['longitud'] as num?)?.toDouble(),
+      estacionId: json['estacion_id'],
+      codigoEstacion: json['codigo_estacion'],
+      nombreEstacion: json['nombre_estacion'],
       nombreComun: json['nombre_comun'],
       nombreCientifico: json['nombre_cientifico'],
       familia: json['familia'],

@@ -68,6 +68,7 @@ class SalidaProvider extends ChangeNotifier {
     String? nombreProyecto,
     DateTime? fechaInicio,
     String? observaciones,
+
   }) async {
     try {
       isLoading = true;

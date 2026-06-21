@@ -165,17 +165,49 @@ Widget build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _infoLine(
-                              'Pez',
-                              ocurrencia.nombreComun ?? ocurrencia.nombreCientifico ?? 'No disponible',
-                            ),
+                            _infoLine('Pez',ocurrencia.nombreComun ?? ocurrencia.nombreCientifico ?? 'No disponible',),
                             _infoLine('Nombre científico', ocurrencia.nombreCientifico ?? 'N/D'),
                             _infoLine('Familia', ocurrencia.familia ?? 'N/D'),
                             _infoLine('Sexo', ocurrencia.sexo ?? 'No definido'),
                             _infoLine('Longitud', ocurrencia.longitudPez?.toString() ?? 'N/D'),
                             _infoLine('Peso', ocurrencia.peso?.toString() ?? 'N/D'),
-                            _infoLine('Coordenadas', ocurrencia.coordenadas ?? 'N/D'),
-                            _infoLine('Altitud', ocurrencia.altitud?.toString() ?? 'N/D'),
+                            const SizedBox(height: 12),
+
+                            const Text(
+                              'Ubicación',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+
+                            const SizedBox(height: 8),
+
+                            _infoLine(
+                              'Estación',
+                              ocurrencia.nombreEstacion ?? 'Sin estación asociada',
+                            ),
+
+                            _infoLine(
+                              'Código estación',
+                              ocurrencia.codigoEstacion ?? 'N/D',
+                            ),
+
+                            _infoLine(
+                              'Latitud',
+                              ocurrencia.latitud?.toStringAsFixed(6) ?? 'N/D',
+                            ),
+
+                            _infoLine(
+                              'Longitud',
+                              ocurrencia.longitud?.toStringAsFixed(6) ?? 'N/D',
+                            ),
+
+                            _infoLine(
+                              'Altitud (m)',
+                              ocurrencia.altitud?.toStringAsFixed(2) ?? 'N/D',
+                            ),
                             _infoLine('Esfuerzo', ocurrencia.esfuerzo?.toString() ?? 'N/D'),
                             _infoLine('CPUE', ocurrencia.cpue?.toString() ?? 'N/D'),
                             _infoLine('Estado ontogenético', ocurrencia.estadoOntogenetico ?? 'N/D'),

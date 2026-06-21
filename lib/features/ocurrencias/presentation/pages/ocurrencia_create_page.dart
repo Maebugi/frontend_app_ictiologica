@@ -28,10 +28,12 @@ class OcurrenciaCreatePage extends StatefulWidget {
 
 class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
   final _coordenadasController = TextEditingController();
+  final _latitudController = TextEditingController();
+  final _longitudController = TextEditingController();
   final _altitudController = TextEditingController();
   final _esfuerzoController = TextEditingController();
   final _cpueController = TextEditingController();
-  final _longitudController = TextEditingController();
+  final _longitudPezController = TextEditingController();
   final _pesoController = TextEditingController();
   final _estadoOntogeneticoController = TextEditingController();
   final _nivelCertezaController = TextEditingController();
@@ -134,10 +136,12 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
       );
       fechaHora = o.fechaHora;
       _coordenadasController.text = o.coordenadas ?? '';
+      _latitudController.text =o.latitud?.toString() ?? '';
+      _longitudController.text = o.longitud?.toString() ?? '';
       _altitudController.text = o.altitud?.toString() ?? '';
       _esfuerzoController.text = o.esfuerzo?.toString() ?? '';
       _cpueController.text = o.cpue?.toString() ?? '';
-      _longitudController.text = o.longitudPez?.toString() ?? '';
+      _longitudPezController.text = o.longitudPez?.toString() ?? '';
       _pesoController.text = o.peso?.toString() ?? '';
       _estadoOntogeneticoController.text = o.estadoOntogenetico ?? '';
       _nivelCertezaController.text = o.nivelCerteza?.toString() ?? '';
@@ -173,10 +177,12 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
   @override
   void dispose() {
     _coordenadasController.dispose();
+    _latitudController.dispose();
+    _longitudController.dispose();
     _altitudController.dispose();
     _esfuerzoController.dispose();
     _cpueController.dispose();
-    _longitudController.dispose();
+    _longitudPezController.dispose();
     _pesoController.dispose();
     _estadoOntogeneticoController.dispose();
     _nivelCertezaController.dispose();
@@ -212,9 +218,14 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
 
       _coordenadasController.text =
           '${position.latitude.toStringAsFixed(6)}, ${position.longitude.toStringAsFixed(6)}';
+      _latitudController.text =
+          position.latitude.toStringAsFixed(6);
 
+      _longitudController.text =
+          position.longitude.toStringAsFixed(6);
       if (position.altitude != 0) {
-        _altitudController.text = position.altitude.toStringAsFixed(2);
+        _altitudController.text =
+              position.altitude.toStringAsFixed(2);
       }
 
       if (mounted) {
@@ -249,6 +260,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
       selectedTime.minute,
     );
   }
+
 
   String _formatDateTime(DateTime? date) {
     if (date == null) return 'Seleccionar fecha y hora';
@@ -403,10 +415,17 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
         coordenadas: _coordenadasController.text.trim().isEmpty
             ? null
             : _coordenadasController.text.trim(),
+        latitud: double.tryParse(
+          _latitudController.text.trim(),
+        ),
+
+        longitud: double.tryParse(
+          _longitudController.text.trim(),
+        ),
         altitud: double.tryParse(_altitudController.text.trim()),
         esfuerzo: double.tryParse(_esfuerzoController.text.trim()),
         cpue: double.tryParse(_cpueController.text.trim()),
-        longitudPez: double.tryParse(_longitudController.text.trim()),
+        longitudPez: double.tryParse(_longitudPezController.text.trim()),
         peso: double.tryParse(_pesoController.text.trim()),
         sexo: sexo,
         estadoOntogenetico: _estadoOntogeneticoController.text.trim().isEmpty
@@ -477,6 +496,13 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
     final createdOcurrenciaId = await provider.createOcurrencia(
       salidaId: widget.salidaId,
       idEspecie: selectedSpecies!.especieId,
+      latitud: double.tryParse(
+        _latitudController.text.trim(),
+      ),
+
+      longitud: double.tryParse(
+        _longitudController.text.trim(),
+      ),
       fechaHora: fechaHora,
       coordenadas: _coordenadasController.text.trim().isEmpty
           ? null
@@ -484,7 +510,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
       altitud: double.tryParse(_altitudController.text.trim()),
       esfuerzo: double.tryParse(_esfuerzoController.text.trim()),
       cpue: double.tryParse(_cpueController.text.trim()),
-      longitudPez: double.tryParse(_longitudController.text.trim()),
+      longitudPez: double.tryParse(_longitudPezController.text.trim()),
       peso: double.tryParse(_pesoController.text.trim()),
       sexo: sexo,
       estadoOntogenetico: _estadoOntogeneticoController.text.trim().isEmpty
@@ -626,6 +652,22 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
               const SizedBox(height: 12),
               _grayInput(controller: _coordenadasController, hint: 'Coordenadas'),
               const SizedBox(height: 12),
+
+              _grayInput(
+                controller: _latitudController,
+                hint: 'Latitud',
+                keyboardType: TextInputType.number,
+              ),
+
+              const SizedBox(height: 12),
+
+              _grayInput(
+                controller: _longitudController,
+                hint: 'Longitud',
+                keyboardType: TextInputType.number,
+              ),
+
+              const SizedBox(height: 12),
               _grayInput(
                 controller: _altitudController,
                 hint: 'Altitud',
@@ -645,7 +687,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
               ),
               const SizedBox(height: 12),
               _grayInput(
-                controller: _longitudController,
+                controller: _longitudPezController,
                 hint: 'Longitud del pez',
                 keyboardType: TextInputType.number,
               ),

@@ -414,9 +414,12 @@ class _SalidaDetailPageState extends State<SalidaDetailPage> {
                                             child: Text(
                                               'Pez: ${item.nombreComun ?? item.nombreCientifico ?? 'Especie no disponible'}\n'
                                               'Familia: ${item.familia ?? 'N/D'}\n'
+                                              'Estación: ${item.nombreEstacion ?? "Sin estación"}\n'
+                                              'Código estación: ${item.codigoEstacion ?? "N/D"}'
                                               'Sexo: ${item.sexo ?? 'No definido'}\n'
                                               'Longitud: ${item.longitudPez?.toString() ?? 'N/D'}\n'
                                               'Peso: ${item.peso?.toString() ?? 'N/D'}',
+
                                               style: const TextStyle(
                                                 fontSize: 14,
                                                 height: 1.5,

@@ -33,6 +33,11 @@ class OcurrenciaUpdateRequestModel {
   final String? codigoMuestreo;
   final String? datum;
   final String? observaciones;
+  final double? latitud;
+  final double? longitud;
+  final String? estacionId;
+  final String? codigoEstacion;
+  final String? nombreEstacion;
 
   OcurrenciaUpdateRequestModel({
     this.idEspecie,
@@ -69,6 +74,11 @@ class OcurrenciaUpdateRequestModel {
     this.codigoMuestreo,
     this.datum,
     this.observaciones,
+    this.latitud,
+    this.longitud,
+    this.estacionId,
+    this.codigoEstacion,
+    this.nombreEstacion,
   });
 
   Map<String, dynamic> toJson() {
@@ -107,6 +117,11 @@ class OcurrenciaUpdateRequestModel {
       'codigo_muestreo': codigoMuestreo,
       'datum': datum,
       'observaciones': observaciones,
+      'latitud': latitud,
+      'longitud': longitud,
+      'estacion_id': estacionId,
+      'codigo_estacion': codigoEstacion,
+      'nombre_estacion': nombreEstacion,
     };
   }
 }

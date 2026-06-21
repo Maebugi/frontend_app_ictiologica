@@ -77,6 +77,8 @@ class OcurrenciaProvider extends ChangeNotifier {
   Future<String?> createOcurrencia({
   required String salidaId,
   required String idEspecie,
+  double? latitud,
+  double? longitud,
   DateTime? fechaHora,
   String? coordenadas,
   double? altitud,
@@ -111,6 +113,7 @@ class OcurrenciaProvider extends ChangeNotifier {
   String? datum,
   String? observaciones,
 
+
   //local
   String? nombreComun,
   String? nombreCientifico,
@@ -125,6 +128,8 @@ class OcurrenciaProvider extends ChangeNotifier {
       idOcurrencia: _uuid.v4(),
       idEspecie: idEspecie,
       salidaId: salidaId,
+      latitud: latitud,
+      longitud: longitud,
       fechaHora: fechaHora,
       coordenadas: coordenadas,
       altitud: altitud,
@@ -158,7 +163,6 @@ class OcurrenciaProvider extends ChangeNotifier {
       codigoMuestreo: codigoMuestreo,
       datum: datum,
       observaciones: observaciones,
-
       nombreComun: nombreComun,
       nombreCientifico: nombreCientifico,
       familia: familia,
@@ -223,6 +227,8 @@ class OcurrenciaProvider extends ChangeNotifier {
   Future<bool> updateOcurrencia({
     required String ocurrenciaId,
     String? idEspecie,
+    double? latitud,
+    double? longitud,
     DateTime? fechaHora,
     String? coordenadas,
     double? altitud,
@@ -264,6 +270,8 @@ class OcurrenciaProvider extends ChangeNotifier {
 
       final request = OcurrenciaUpdateRequestModel(
         idEspecie: idEspecie,
+        latitud: latitud,
+        longitud: longitud,
         fechaHora: fechaHora,
         coordenadas: coordenadas,
         altitud: altitud,
@@ -312,6 +320,12 @@ class OcurrenciaProvider extends ChangeNotifier {
           longitudPez: updated.longitudPez,
           peso: updated.peso,
           observaciones: updated.observaciones,
+          latitud: updated.latitud,
+          longitud: updated.longitud,
+
+          nombreComun: updated.nombreComun,
+          nombreCientifico: updated.nombreCientifico,
+          familia: updated.familia,
         );
       }
 

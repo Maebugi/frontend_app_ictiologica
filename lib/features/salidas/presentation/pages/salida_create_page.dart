@@ -6,6 +6,7 @@ import 'package:frontend/app/shared/widgets/custom_button.dart';
 import '../providers/salida_provider.dart';
 import '../../data/models/salida_model.dart';
 
+
 class SalidaCreatePage extends StatefulWidget {
   final SalidaModel? salida;
 
@@ -26,6 +27,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
   final _observacionesController = TextEditingController();
 
   DateTime? fechaInicio;
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +57,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
         '${date.minute.toString().padLeft(2, '0')}';
   }
 
+
   Future<DateTime?> _pickDateTime() async {
     final selectedDate = await showDatePicker(
       context: context,
@@ -82,6 +85,8 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
     );
   }
 
+
+
   Future<void> _saveSalida() async {
     final provider = context.read<SalidaProvider>();
 
@@ -97,6 +102,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
     final observaciones = _observacionesController.text.trim().isEmpty
         ? null
         : _observacionesController.text.trim();
+
 
     bool success;
 
@@ -116,6 +122,7 @@ class _SalidaCreatePageState extends State<SalidaCreatePage> {
         nombreProyecto: nombreProyecto,
         fechaInicio: fechaInicio,
         observaciones: observaciones,
+
       );
     }
 

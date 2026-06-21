@@ -55,6 +55,9 @@ class OcurrenciaLocalDatasource {
         'nombre_comun': ocurrencia.nombreComun,
         'nombre_cientifico': ocurrencia.nombreCientifico,
         'familia': ocurrencia.familia,
+        'latitud': ocurrencia.latitud,
+        'longitud': ocurrencia.longitud,
+        'estacion_id': ocurrencia.estacionId,
         'sync_status': syncStatus,
         'is_deleted': 0,
         'updated_at_local': DateTime.now().toIso8601String(),
@@ -87,6 +90,9 @@ class OcurrenciaLocalDatasource {
         nombreComun: json['nombre_comun'] as String?,
         nombreCientifico: json['nombre_cientifico'] as String?,
         familia: json['familia'] as String?,
+        latitud: (json['latitud'] as num?)?.toDouble(),
+        longitud: (json['longitud'] as num?)?.toDouble(),
+        estacionId: json['estacion_id'] as String?,
       );
     }).toList();
   }
@@ -147,6 +153,9 @@ class OcurrenciaLocalDatasource {
       nombreComun: json['nombre_comun'] as String?,
       nombreCientifico: json['nombre_cientifico'] as String?,
       familia: json['familia'] as String?,
+      latitud: (json['latitud'] as num?)?.toDouble(),
+      longitud: (json['longitud'] as num?)?.toDouble(),
+      estacionId: json['estacion_id'] as String?,
     );
   }
 
@@ -217,6 +226,9 @@ class OcurrenciaLocalDatasource {
         nombreComun: json['nombre_comun'] as String?,
         nombreCientifico: json['nombre_cientifico'] as String?,
         familia: json['familia'] as String?,
+        latitud: (json['latitud'] as num?)?.toDouble(),
+        longitud: (json['longitud'] as num?)?.toDouble(),
+        estacionId: json['estacion_id'] as String?,
         );
     }).toList();
     }
@@ -274,6 +286,9 @@ class OcurrenciaLocalDatasource {
         nombreComun: json['nombre_comun'] as String?,
         nombreCientifico: json['nombre_cientifico'] as String?,
         familia: json['familia'] as String?,
+        latitud: (json['latitud'] as num?)?.toDouble(),
+        longitud: (json['longitud'] as num?)?.toDouble(),
+        estacionId: json['estacion_id'] as String?,
         );
     }).toList();
     }

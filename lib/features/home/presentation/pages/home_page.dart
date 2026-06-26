@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:frontend/features/mediciones/presentation/providers/medicion_provider.dart';
 import 'package:frontend/features/evidencias/presentation/providers/evidencia_provider.dart';
 import 'package:frontend/features/salida_evidencias/presentation/providers/salida_evidencia_provider.dart';
+import 'package:frontend/features/exportacion/data/exportacion_service.dart';
+import 'package:open_filex/open_filex.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -103,7 +105,36 @@ class HomePage extends StatelessWidget {
               _menuItem(
                 title: 'Exportar datos',
                 emoji: '📤',
-                onTap: () {},
+                onTap: () async {
+                  try {
+                    final archivo = await ExportacionService().exportarDatos();
+
+                                      await OpenFilex.open(
+                                        archivo.path,
+                                      );
+
+                    if (!context.mounted) return;
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Exportación realizada correctamente.\n'
+                          'Archivo guardado en:\n${archivo.path}',
+                        ),
+                      ),
+                    );
+                  } catch (e) {
+                    if (!context.mounted) return;
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Error al exportar los datos:\n$e',
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
               _menuItem(
                 title: 'Sincronización de datos',

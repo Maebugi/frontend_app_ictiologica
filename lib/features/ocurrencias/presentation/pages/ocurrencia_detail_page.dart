@@ -165,24 +165,32 @@ Widget build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _infoLine('Pez',ocurrencia.nombreComun ?? ocurrencia.nombreCientifico ?? 'No disponible',),
-                            _infoLine('Nombre científico', ocurrencia.nombreCientifico ?? 'N/D'),
-                            _infoLine('Familia', ocurrencia.familia ?? 'N/D'),
-                            _infoLine('Sexo', ocurrencia.sexo ?? 'No definido'),
-                            _infoLine('Longitud', ocurrencia.longitudPez?.toString() ?? 'N/D'),
-                            _infoLine('Peso', ocurrencia.peso?.toString() ?? 'N/D'),
-                            const SizedBox(height: 12),
-
-                            const Text(
-                              'Ubicación',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.textPrimary,
-                              ),
+                            _sectionTitle('Información de la especie'),
+                            _infoLine(
+                              'Pez',
+                              ocurrencia.nombreComun ??
+                                  ocurrencia.nombreCientifico ??
+                                  'No disponible',
                             ),
+                            _infoLine(
+                              'Nombre científico',
+                              ocurrencia.nombreCientifico ?? 'N/D',
+                            ),
+                            _infoLine(
+                              'Familia',
+                              ocurrencia.familia ?? 'N/D',
+                            ),
+                          ],
+                        ),
+                      ),
 
-                            const SizedBox(height: 8),
+                      const SizedBox(height: 16),
+
+                      _sectionCard(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _sectionTitle('Ubicación'),
 
                             _infoLine(
                               'Estación',
@@ -208,17 +216,73 @@ Widget build(BuildContext context) {
                               'Altitud (m)',
                               ocurrencia.altitud?.toStringAsFixed(2) ?? 'N/D',
                             ),
-                            _infoLine('Esfuerzo', ocurrencia.esfuerzo?.toString() ?? 'N/D'),
-                            _infoLine('CPUE', ocurrencia.cpue?.toString() ?? 'N/D'),
-                            _infoLine('Estado ontogenético', ocurrencia.estadoOntogenetico ?? 'N/D'),
-                            _infoLine('Estadio de vida', ocurrencia.estadioVida ?? 'N/D'),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      _sectionCard(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _sectionTitle('Información biológica'),
+
+                            _infoLine('Sexo', ocurrencia.sexo ?? 'No definido'),
+                            _infoLine(
+                              'Longitud',
+                              ocurrencia.longitudPez?.toString() ?? 'N/D',
+                            ),
+                            _infoLine(
+                              'Peso',
+                              ocurrencia.peso?.toString() ?? 'N/D',
+                            ),
+                            _infoLine(
+                              'Estado ontogenético',
+                              ocurrencia.estadoOntogenetico ?? 'N/D',
+                            ),
+                            _infoLine(
+                              'Estadio de vida',
+                              ocurrencia.estadioVida ?? 'N/D',
+                            ),
                             _infoLine(
                               'Condición reproductiva',
                               ocurrencia.condicionReproductiva ?? 'N/D',
                             ),
-                            _infoLine('Voucher', ocurrencia.vouchers ?? 'N/D'),
-                            _infoLine('Estado individuo', ocurrencia.mortalidad ?? 'N/D'),
-                            _infoLine('Observaciones', ocurrencia.observaciones ?? 'N/D'),
+                            _infoLine(
+                              'Estado individuo',
+                              ocurrencia.mortalidad ?? 'N/D',
+                            ),
+                            _infoLine(
+                              'Voucher',
+                              ocurrencia.vouchers ?? 'N/D',
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      _sectionCard(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _sectionTitle('Hábitat y captura'),
+
+                            _infoLine(
+                              'Esfuerzo',
+                              ocurrencia.esfuerzo?.toString() ?? 'N/D',
+                            ),
+
+                            _infoLine(
+                              'CPUE',
+                              ocurrencia.cpue?.toString() ?? 'N/D',
+                            ),
+
+                            _infoLine(
+                              'Observaciones',
+                              ocurrencia.observaciones ?? 'N/D',
+                            ),
                           ],
                         ),
                       ),

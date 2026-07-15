@@ -190,6 +190,127 @@ class _MedicionCreatePageState extends State<MedicionCreatePage> {
     );
   }
 
+  bool _validarFormulario() {
+    final campos = <Map<String, dynamic>>[
+      {"nombre": "Oxígeno disuelto", "controller": _oxigenoController},
+      {"nombre": "pH", "controller": _phController},
+      {"nombre": "Turbidez", "controller": _turbidezController},
+      {"nombre": "Conductividad", "controller": _conductividadController},
+      {"nombre": "TDS", "controller": _tdsController},
+      {"nombre": "Temperatura", "controller": _temperaturaController},
+      {"nombre": "Transparencia", "controller": _transparenciaController},
+      {"nombre": "ORP", "controller": _orpController},
+      {"nombre": "Alcalinidad", "controller": _alcalinidadController},
+      {"nombre": "Dureza", "controller": _durezaController},
+      {"nombre": "Salinidad", "controller": _salinidadController},
+      {"nombre": "Amonio", "controller": _amonioController},
+      {"nombre": "Fósforo/Metales", "controller": _fosforoMetalesController},
+      {"nombre": "Nitratos", "controller": _nitratosController},
+      {"nombre": "Nitritos", "controller": _nitritosController},
+      {"nombre": "Fosfatos", "controller": _fosfatosController},
+      {"nombre": "Clorofila A", "controller": _clorofilaController},
+      {"nombre": "SST", "controller": _sstController},
+      {"nombre": "Coliformes fecales", "controller": _coliformesController},
+    ];
+
+    // Campos vacíos
+    for (final campo in campos) {
+      if ((campo["controller"] as TextEditingController)
+          .text
+          .trim()
+          .isEmpty) {
+        _mostrarError(
+            "Debe llenar el campo '${campo["nombre"]}' para continuar.");
+        return false;
+      }
+    }
+
+    // Dropdown
+    if (nivelEstadoAgua == null) {
+      _mostrarError("Seleccione el nivel o estado del agua.");
+      return false;
+    }
+
+    // pH
+    final ph = double.tryParse(_phController.text);
+    if (ph == null || ph < 0 || ph > 14) {
+      _mostrarError("El pH debe estar entre 0 y 14.");
+      return false;
+    }
+
+    // Oxígeno
+    final oxigeno = double.tryParse(_oxigenoController.text);
+    if (oxigeno == null || oxigeno < 0 || oxigeno > 20) {
+      _mostrarError("El oxígeno disuelto debe estar entre 0 y 20 mg/L.");
+      return false;
+    }
+
+    // Turbidez
+    final turbidez = double.tryParse(_turbidezController.text);
+    if (turbidez == null || turbidez < 0) {
+      _mostrarError("La turbidez no puede ser negativa.");
+      return false;
+    }
+
+    // Conductividad
+    final conductividad = double.tryParse(_conductividadController.text);
+    if (conductividad == null || conductividad < 0) {
+      _mostrarError("La conductividad no puede ser negativa.");
+      return false;
+    }
+
+    // Temperatura
+    final temperatura = double.tryParse(_temperaturaController.text);
+    if (temperatura == null || temperatura < -10 || temperatura > 60) {
+      _mostrarError("Ingrese una temperatura válida.");
+      return false;
+    }
+
+    // Todos los demás valores numéricos no pueden ser negativos
+    final controles = [
+      _tdsController,
+      _transparenciaController,
+      _alcalinidadController,
+      _durezaController,
+      _salinidadController,
+      _amonioController,
+      _fosforoMetalesController,
+      _nitratosController,
+      _nitritosController,
+      _fosfatosController,
+      _clorofilaController,
+      _sstController,
+    ];
+
+    for (final c in controles) {
+      final valor = double.tryParse(c.text);
+      if (valor == null || valor < 0) {
+        _mostrarError("No se permiten valores negativos.");
+        return false;
+      }
+    }
+
+    final coliformes = int.tryParse(_coliformesController.text);
+    if (coliformes == null || coliformes < 0) {
+      _mostrarError("Los coliformes deben ser un número entero positivo.");
+      return false;
+    }
+
+    return true;
+  }
+
+
+  void _mostrarError(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+      ),
+    );
+  }
+
   Future<void> _saveMedicion() async {
     final provider = context.read<MedicionProvider>();
 

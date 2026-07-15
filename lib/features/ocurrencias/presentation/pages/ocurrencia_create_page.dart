@@ -234,6 +234,155 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
     } catch (_) {}
   }
 
+ bool _validarFormulario() {
+
+   // Especie
+   if (selectedSpecies == null) {
+     _mostrarError("Debe seleccionar una especie.");
+     return false;
+   }
+
+   // Fecha
+   if (fechaHora == null) {
+     _mostrarError("Debe seleccionar la fecha y la hora.");
+     return false;
+   }
+
+   // Latitud
+   if (_latitudController.text.trim().isEmpty) {
+     _mostrarError("La latitud es obligatoria.");
+     return false;
+   }
+
+   final latitud = double.tryParse(_latitudController.text.trim());
+
+   if (latitud == null) {
+     _mostrarError("La latitud debe ser un número.");
+     return false;
+   }
+
+   if (latitud < -90 || latitud > 90) {
+     _mostrarError("La latitud debe estar entre -90 y 90.");
+     return false;
+   }
+
+   // Longitud
+   if (_longitudController.text.trim().isEmpty) {
+     _mostrarError("La longitud es obligatoria.");
+     return false;
+   }
+
+   final longitud = double.tryParse(_longitudController.text.trim());
+
+   if (longitud == null) {
+     _mostrarError("La longitud debe ser un número.");
+     return false;
+   }
+
+   if (longitud < -180 || longitud > 180) {
+     _mostrarError("La longitud debe estar entre -180 y 180.");
+     return false;
+   }
+
+   // Tipo de hábitat
+   if (tipoHabitat == null) {
+     _mostrarError("Seleccione el tipo de hábitat.");
+     return false;
+   }
+
+   // Dinámica del agua
+   if (dinamicaAgua == null) {
+     _mostrarError("Seleccione la dinámica del agua.");
+     return false;
+   }
+
+   // Método de captura
+   if (metodoCaptura == null) {
+     _mostrarError("Seleccione el método de captura.");
+     return false;
+   }
+
+   // Mortalidad
+   if (mortalidad == null) {
+     _mostrarError("Seleccione el estado del individuo.");
+     return false;
+   }
+
+   // Nivel de certeza
+   if (_nivelCertezaController.text.trim().isNotEmpty) {
+     final certeza = int.tryParse(_nivelCertezaController.text.trim());
+
+     if (certeza == null) {
+       _mostrarError("El nivel de certeza debe ser un número.");
+       return false;
+     }
+
+     if (certeza < 0 || certeza > 100) {
+       _mostrarError("El nivel de certeza debe estar entre 0 y 100.");
+       return false;
+     }
+   }
+
+   // Campos numéricos que no aceptan negativos
+   final controles = [
+     _altitudController,
+     _esfuerzoController,
+     _cpueController,
+     _longitudPezController,
+     _pesoController,
+     _anchoCauceController,
+     _profundidadMediaController,
+     _profundidadMaximaController,
+     _caudalVelocidadController,
+     _coberturaDoselController,
+   ];
+
+   for (final controller in controles) {
+
+     if (controller.text.trim().isEmpty) continue;
+
+     final valor = double.tryParse(controller.text.trim());
+
+     if (valor == null) {
+       _mostrarError("Uno de los campos numéricos contiene un valor inválido.");
+       return false;
+     }
+
+     if (valor < 0) {
+       _mostrarError("No se permiten valores negativos.");
+       return false;
+     }
+   }
+
+   // Profundidad máxima >= profundidad media
+   if (_profundidadMediaController.text.isNotEmpty &&
+       _profundidadMaximaController.text.isNotEmpty) {
+
+     final media = double.parse(_profundidadMediaController.text);
+     final maxima = double.parse(_profundidadMaximaController.text);
+
+     if (maxima < media) {
+       _mostrarError(
+         "La profundidad máxima no puede ser menor que la profundidad media.",
+       );
+       return false;
+     }
+   }
+
+   return true;
+ }
+
+  void _mostrarError(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+      ),
+    );
+  }
+
   Future<DateTime?> _pickDateTime() async {
     final selectedDate = await showDatePicker(
       context: context,
@@ -393,17 +542,7 @@ class _OcurrenciaCreatePageState extends State<OcurrenciaCreatePage> {
   }
 
   Future<void> _saveOcurrencia() async {
-    if (selectedSpecies == null && !widget.isEditMode) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Debes seleccionar una especie'),
-          backgroundColor: Colors.red.shade600,
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
-        ),
-      );
-      return;
-    }
+    if (!_validarFormulario()) return;
 
     final provider = context.read<OcurrenciaProvider>();
 

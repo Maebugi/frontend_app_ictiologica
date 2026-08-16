@@ -15,7 +15,7 @@ import 'package:frontend/features/evidencias/presentation/providers/evidencia_pr
 import 'package:frontend/features/salida_evidencias/presentation/providers/salida_evidencia_provider.dart';
 import 'package:frontend/features/exportacion/data/exportacion_service.dart';
 import 'package:open_filex/open_filex.dart';
-
+import '../../../especies/presentation/pages/species_list_page.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -100,7 +100,14 @@ class HomePage extends StatelessWidget {
               _menuItem(
                 title: 'Lista de especies registradas',
                 emoji: '🐟',
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const SpeciesListPage(),
+                    ),
+                  );
+                },
               ),
               _menuItem(
                 title: 'Exportar datos',

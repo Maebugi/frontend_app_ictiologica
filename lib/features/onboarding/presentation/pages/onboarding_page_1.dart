@@ -16,38 +16,51 @@ class OnboardingPage1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              const BrandTitle(),
-              const SizedBox(height: 14),
-              Expanded(
-                flex: 5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    FishAssetImage(
-                      assetPath: AssetPaths.onboardingWaterFish,
-                      width: 360,
-                    ),
-                    SizedBox(height: 4),
-                    FishAssetImage(
-                      assetPath: AssetPaths.onboardingWaterFish,
-                      width: 360,
-                      flipHorizontally: true,
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18,
+              vertical: 16,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+
+                const Center(
+                  child: BrandTitle(),
                 ),
-              ),
-              const SizedBox(height: 8),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+
+                const SizedBox(height: 14),
+
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FishAssetImage(
+                        assetPath: AssetPaths.onboardingWaterFish,
+                        width: screenWidth * 0.82,
+                      ),
+
+                      const SizedBox(height: 4),
+
+                      FishAssetImage(
+                        assetPath: AssetPaths.onboardingWaterFish,
+                        width: screenWidth * 0.82,
+                        flipHorizontally: true,
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                const Text(
                   'Explora la vida bajo el agua',
                   style: TextStyle(
                     fontSize: 19,
@@ -55,11 +68,10 @@ class OnboardingPage1 extends StatelessWidget {
                     color: AppColors.textPrimary,
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+
+                const SizedBox(height: 10),
+
+                const Text(
                   'Registra tus avistamientos de peces y ayuda a conocer mejor la diversidad acuática de nuestros ríos, lagos y mares.',
                   style: TextStyle(
                     fontSize: 14,
@@ -68,16 +80,21 @@ class OnboardingPage1 extends StatelessWidget {
                     color: AppColors.textSecondary,
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              CustomButton(
-                text: 'Continuar',
-                onPressed: onContinue,
-                width: 200,
-                backgroundColor: AppColors.onboardingGreen,
-              ),
-              const SizedBox(height: 8),
-            ],
+
+                const SizedBox(height: 20),
+
+                Center(
+                  child: CustomButton(
+                    text: 'Continuar',
+                    onPressed: onContinue,
+                    width: 200,
+                    backgroundColor: AppColors.onboardingGreen,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+              ],
+            ),
           ),
         ),
       ),

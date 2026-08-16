@@ -18,48 +18,59 @@ class OnboardingPage3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              const BrandTitle(),
-              const SizedBox(height: 10),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18,
+              vertical: 16,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
 
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                const Center(
+                  child: BrandTitle(),
+                ),
 
-                  const Align(
-                    alignment: Alignment.centerRight,
-                    child: FishAssetImage(
-                      assetPath: AssetPaths.onboardingFeaturesFish,
-                      width: 350,
-                    ),
-                  ),
+                const SizedBox(height: 10),
 
-                  Transform.translate(
-                    offset: const Offset(-40, -60),
-                    child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: FishAssetImage(
-                        assetPath: AssetPaths.onboardingFeaturesFish,
-                        width: 350,
-                        flipHorizontally: true,
+                // IMÁGENES
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: FishAssetImage(
+                          assetPath: AssetPaths.onboardingFeaturesFish,
+                          width: screenWidth * 0.80,
+                        ),
                       ),
-                    ),
+
+                      Transform.translate(
+                        offset: const Offset(-40, -60),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: FishAssetImage(
+                            assetPath: AssetPaths.onboardingFeaturesFish,
+                            width: screenWidth * 0.80,
+                            flipHorizontally: true,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
 
-              const SizedBox(height: 2),
+                const SizedBox(height: 2),
 
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+                const Text(
                   'Descubre todo lo que puedes hacer con FishTrack',
                   style: TextStyle(
                     fontSize: 18,
@@ -68,13 +79,10 @@ class OnboardingPage3 extends StatelessWidget {
                     height: 1.4,
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 10),
+                const SizedBox(height: 10),
 
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+                const Text(
                   '🐟 Accede a tus bases de datos y listas de especies registradas\n'
                   '🌊 Descubre peces que aún no has observado\n'
                   '🗂️ Sube fotos y exporta tus datos ictiológicos.',
@@ -85,35 +93,40 @@ class OnboardingPage3 extends StatelessWidget {
                     color: AppColors.textSecondary,
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-              CustomButton(
-                text: 'Log in',
-                onPressed: onLogin,
-                width: 220,
-                backgroundColor: AppColors.darkOlive,
-              ),
-
-              const SizedBox(height: 8),
-
-              TextButton(
-                onPressed: onRegister,
-                child: const Text(
-                  'Sign up',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                Center(
+                  child: CustomButton(
+                    text: 'Log in',
+                    onPressed: onLogin,
+                    width: 220,
+                    backgroundColor: AppColors.darkOlive,
                   ),
                 ),
-              ),
-            ],
+
+                const SizedBox(height: 8),
+
+                Center(
+                  child: TextButton(
+                    onPressed: onRegister,
+                    child: const Text(
+                      'Sign up',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
